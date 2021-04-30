@@ -1,0 +1,44 @@
+{% from "cart.html" import Buy, Remove %}
+
+{% macro Product(product, cart_view) %}
+<div class="product column col-3 col-xs-6 p-1">
+  <div class="card">
+    <div class="card-image">
+      <img class="img-responsive" src="{{ product.pic }}" style="width: 100%; aspect-ratio: 4/5">
+    </div>
+    <div class="card-header">
+      <div class="card-title h5 columns">
+        <div class="column col-6">{{ product.price }}&#8372;</div>
+        <div class="column col-6 text-right">
+          {% if product.in_cart %}
+            {% if cart_view %}
+              {{ Remove(product.id) }}
+            {% else %}
+              <a class="btn btn-primary" href="/cart">Cart</a>
+            {% endif %}
+          {% else %}
+            {{ Buy(product.id) }}
+          {% endif %}
+        </div>
+      </div>
+      <div class="card-subtitle text-gray">Product {{ product.id }}</div>
+    </div>
+  </div>
+</div>
+{% endmacro %}
+
+
+{% macro ProductList(products, offset, cart_view) %}
+<div id="products" class="columns">
+  {% for p in products %}
+    {{ Product(p, cart_view) }}
+  {% endfor %}
+  {% if offset %}
+    <a class="column col-12" href="/?offset={{ offset }}"
+       ts-trigger="visible" ts-req="" ts-req-selector="children #products">
+      Next page &gt;&gt;</a>
+  {% endif %}
+</div>
+{% endmacro %}
+
+

@@ -1,0 +1,8 @@
+{% from "products.html" import ProductList %}
+{% extends "base.html" %}
+
+{% block title %}Cart - EcomSpark-Flask{% endblock %}
+{% block content %}
+  <h1>Cart</h1>
+  {{ ProductList(products, offset=None, cart_view=True) }}
+{% endblock %}

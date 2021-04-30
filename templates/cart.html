@@ -1,0 +1,36 @@
+{% macro HeaderCart(cart_size) %}
+  {% if cart_size is not none %}
+    <a id="cart" class="btn btn-link" href="/cart" ts-swap-push="#cart">
+      {% if cart_size > 0 %}<span class="chip">{{ cart_size }}</span>{% endif %}
+      Cart</a>
+  {% else %}
+    <a id="cart" class="btn btn-link" href="/cart" ts-req="/cart" ts-trigger="load">
+      Cart</a>
+  {% endif %}
+{% endmacro %}
+
+{% macro CartAddResult(cart_size) %}
+  <a class="btn btn-primary" href="/cart">Cart</a>
+  {{ HeaderCart(cart_size) }}
+{% endmacro %}
+
+{% macro Buy(product_id) %}
+  <form method="POST" action="/cart/add" ts-req="">
+    <input type="hidden" name="id" value="{{ product_id }}" />
+    <button class="btn btn-primary">Buy</button>
+  </form>
+{% endmacro %}
+
+{% macro RemoveResult(cart_size) %}
+  <button class="btn btn-primary" disabled
+          ts-trigger="load" ts-action="target 'parent .product', class+ fade, wait transitionend, remove">
+    Remove</button>
+  {{ HeaderCart(cart_size) }}
+{% endmacro %}
+
+{% macro Remove(product_id) %}
+  <form method="POST" action="/cart/remove" ts-req="" ts-req-method="delete">
+    <input type="hidden" name="id" value="{{ product_id }}" />
+    <button class="btn btn-primary">Remove</button>
+  </form>
+{% endmacro %}

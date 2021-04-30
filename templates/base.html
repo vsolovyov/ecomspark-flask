@@ -1,0 +1,34 @@
+{% from "cart.html" import HeaderCart -%}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='spectre.css') }}" />
+    <script src="{{ url_for('static', filename='twinspark.js') }}"></script>
+    <style>
+      .fade {opacity: 0; transition: opacity 0.5s ease-in-out; }
+    </style>
+    <title>{% block title %}{% endblock %}</title>
+  </head>
+  <body class="container">
+    <div class="columns">
+      <div class="column col-6 col-xl-8 col-lg-10 col-md-12 col-mx-auto">
+
+        <header class="navbar">
+          <section class="navbar-section">
+            <a class="navbar-brand mr-2" href="/">EcomSpark-Flask</a>
+          </section>
+          <section class="navbar-section">
+            {{ HeaderCart(None) }}
+          </section>
+        </header>
+
+        {% block content %}{% endblock %}
+
+        <footer></footer>
+
+      </div>
+    </div>
+  </body>
+</html>
